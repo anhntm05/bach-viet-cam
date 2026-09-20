@@ -1,0 +1,37 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: bvc-backend
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8000}:8000"
+    environment:
+      - PORT=8000
+      - NODE_ENV=${NODE_ENV:-production}
+      - APP_ORIGIN=${APP_ORIGIN:-http://localhost:3000}
+      - DATABASE_URL=${DATABASE_URL:-postgresql://anhnlh:Bvc%40123@host.docker.internal:5432/bachvietcam_staging}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - bvc-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_BASE_URL=${VITE_API_BASE_URL:-http://localhost:8000/api}
+    container_name: bvc-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - bvc-network
+
+networks:
+  bvc-network:
+    driver: bridge
