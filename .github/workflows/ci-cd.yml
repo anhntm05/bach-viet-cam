@@ -65,38 +65,23 @@ jobs:
   deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: [backend-ci, frontend-ci]
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     environment: production
+    defaults:
+      run:
+        shell: bash
     steps:
-      - name: SSH into VPS, pull latest code, and rebuild
-        uses: appleboy/ssh-action@v1.2.0
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT || 22 }}
-          script: |
-            set -euo pipefail
-            cd ${{ secrets.DEPLOY_PATH }}
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-            echo "Pulling latest code from main..."
-            git fetch origin main
-            git reset --hard origin/main
-
-            echo "Rebuilding and restarting services..."
-            docker compose up -d --build
-
-            echo "Pruning dangling images..."
-            docker image prune -f
+      - name: Rebuild and restart services with Docker Compose
+        run: |
+          echo "Rebuilding and restarting containers..."
+          docker compose up -d --build
+          echo "Pruning unused Docker images..."
+          docker image prune -f
 
       - name: Smoke test backend health endpoint
-        uses: appleboy/ssh-action@v1.2.0
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT || 22 }}
-          script: |
-            set -euo pipefail
-            sleep 5
-            curl -fsS http://localhost:8000/api/health
+        run: |
+          sleep 5
+          curl -fsS http://localhost:8000/api/health
