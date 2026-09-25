@@ -1,6 +1,6 @@
 services:
   backend:
-    image: ghcr.io/anhntm05/bach-viet-cam-backend:${IMAGE_TAG:-latest}
+    image: ghcr.io/hn4h/bach-viet-cam-backend:${IMAGE_TAG:-latest}
     container_name: bvc-backend
     restart: unless-stopped
     ports:
@@ -11,7 +11,7 @@ services:
       - bvc-network
 
   frontend:
-    image: ghcr.io/anhntm05/bach-viet-cam-frontend:${IMAGE_TAG:-latest}
+    image: ghcr.io/hn4h/bach-viet-cam-frontend:${IMAGE_TAG:-latest}
     container_name: bvc-frontend
     restart: unless-stopped
     ports:

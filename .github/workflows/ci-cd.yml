@@ -1,10 +1,11 @@
 name: CI/CD
 
 on:
+  workflow_dispatch:
   pull_request:
     branches: [main]
   push:
-    branches: [main]
+    branches: [main, feat/ci-cd]
 
 jobs:
   backend-ci:
@@ -63,7 +64,7 @@ jobs:
           cache-to: type=gha,mode=max
 
   deploy:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     needs: [backend-ci, frontend-ci]
     runs-on: self-hosted
     environment: production
