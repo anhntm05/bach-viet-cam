@@ -1,4 +1,43 @@
 services:
+  rhythm-db:
+    image: postgres:16-alpine
+    container_name: bvc-rhythm-db
+    restart: unless-stopped
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=${RHYTHM_DB_USER:-rhythm}
+      - POSTGRES_PASSWORD=${RHYTHM_DB_PASSWORD:-rhythm}
+      - POSTGRES_DB=${RHYTHM_DB_NAME:-rhythm}
+    volumes:
+      - rhythm-db-data:/var/lib/postgresql/data
+    networks:
+      - bvc-network
+
+  rhythm-service:
+    build:
+      context: ./rhythm-service
+      dockerfile: Dockerfile
+    container_name: bvc-rhythm-service
+    restart: unless-stopped
+    ports:
+      - "8001:8001"
+    environment:
+      - APP_PORT=8001
+      - DATABASE_URL=postgresql+psycopg://${RHYTHM_DB_USER:-rhythm}:${RHYTHM_DB_PASSWORD:-rhythm}@rhythm-db:5432/${RHYTHM_DB_NAME:-rhythm}
+      - RABBITMQ_URL=${RABBITMQ_URL:?Set RABBITMQ_URL to your RabbitMQ Cloud AMQP URL}
+      - RHYTHM_TASK_QUEUE=rhythm.evaluate.v1
+      - RHYTHM_DEAD_LETTER_QUEUE=rhythm.evaluate.dlq
+      - INTERNAL_API_KEY=${RHYTHM_INTERNAL_API_KEY:-change-me-in-production}
+      - MAX_FILE_BYTES=26214400
+      - DOWNLOAD_TIMEOUT_SECONDS=60
+      - MAX_RETRIES=3
+      - TEMP_DIRECTORY=/tmp/rhythm-service
+    depends_on:
+      - rhythm-db
+    networks:
+      - bvc-network
+
   backend:
     build:
       context: ./backend
@@ -35,3 +74,6 @@ services:
 networks:
   bvc-network:
     driver: bridge
+
+volumes:
+  rhythm-db-data:
