@@ -29,6 +29,9 @@ services:
       - RHYTHM_TASK_QUEUE=rhythm.evaluate.v1
       - RHYTHM_DEAD_LETTER_QUEUE=rhythm.evaluate.dlq
       - INTERNAL_API_KEY=${RHYTHM_INTERNAL_API_KEY:-change-me-in-production}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - GEMINI_MODEL=${GEMINI_MODEL:-gemini-2.5-flash}
+      - GEMINI_TIMEOUT_SECONDS=30
       - MAX_FILE_BYTES=26214400
       - DOWNLOAD_TIMEOUT_SECONDS=60
       - MAX_RETRIES=3
