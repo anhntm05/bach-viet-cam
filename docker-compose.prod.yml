@@ -1,0 +1,26 @@
+services:
+  backend:
+    image: ghcr.io/hn4h/bach-viet-cam-backend:${IMAGE_TAG:-latest}
+    container_name: bvc-backend
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8000}:8000"
+    env_file:
+      - .env
+    networks:
+      - bvc-network
+
+  frontend:
+    image: ghcr.io/hn4h/bach-viet-cam-frontend:${IMAGE_TAG:-latest}
+    container_name: bvc-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - bvc-network
+
+networks:
+  bvc-network:
+    driver: bridge
