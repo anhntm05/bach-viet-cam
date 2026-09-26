@@ -1,21 +1,10 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Eye, EyeOff } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { LoginForm } from "@/features/auth/components/LoginForm";
 
 export function LoginPage() {
-  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   return (
-<<<<<<< Updated upstream
-    <div className="flex min-h-screen items-center justify-center">
-      <div className="w-full max-w-md rounded-lg border p-8 shadow-sm">
-        <div className="mb-6"><h1 className="text-2xl font-bold">Đăng nhập</h1></div>
-        <LoginForm />
-        <p className="mt-4 text-center text-sm text-gray-600">
-          Chưa có tài khoản? <Link to="/register" className="text-blue-600 hover:underline">Đăng ký ngay</Link>
-=======
     <div className="flex min-h-dvh justify-center bg-bvc-surface">
       <div className="flex h-dvh w-full max-w-[428px] flex-col justify-center gap-[26px] overflow-hidden bg-white px-[24px]">
 
@@ -50,7 +39,7 @@ export function LoginPage() {
           </div>
           <button
             type="button"
-            onClick={() => navigate("/dashboard")}
+            onClick={() => navigate("/home")}
             className="min-h-[52px] cursor-pointer rounded-[16px] border border-bvc-border-strong bg-white text-[15px] font-semibold text-bvc-ink"
           >
             Đăng nhập bằng tài khoản FPT
@@ -59,7 +48,6 @@ export function LoginPage() {
 
         <p className="m-0 text-[12.5px] leading-[1.55] text-bvc-muted">
           Hệ thống tự nhận vai trò từ tài khoản: sinh viên, giảng viên, quản trị hoặc đơn vị cho thuê nhạc cụ.
->>>>>>> Stashed changes
         </p>
       </div>
     </div>

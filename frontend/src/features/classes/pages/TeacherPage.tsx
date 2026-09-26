@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { DesktopSidebar, DesktopPageHeader, StatCard } from "@/shared/components/bvc";
 
 const NAV_ITEMS = [
@@ -33,8 +32,6 @@ const STATUS_COLORS = {
 };
 
 export function TeacherPage() {
-  const navigate = useNavigate();
-
   return (
     <div className="flex h-screen w-full overflow-hidden bg-white">
       <DesktopSidebar items={NAV_ITEMS} user={{ initials: "NH", name: "Nguyễn Thu Hương", role: "Giảng viên" }} />

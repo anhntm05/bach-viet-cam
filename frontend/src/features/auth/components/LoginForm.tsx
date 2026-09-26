@@ -1,39 +1,39 @@
-<<<<<<< Updated upstream
-import { GoogleLogin } from "@react-oauth/google";
-=======
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
->>>>>>> Stashed changes
-import { useLogin } from "@/features/auth/hooks/useLogin";
+
+interface LoginFields {
+  email: string;
+  password: string;
+}
 
 export function LoginForm() {
-  const { login, isLoading, error } = useLogin();
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginFields>();
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const onSubmit = async (_data: LoginFields) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      // TODO: connect to email/password auth endpoint
+    } catch {
+      setError("Đăng nhập thất bại. Kiểm tra lại email hoặc mật khẩu.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
-<<<<<<< Updated upstream
-    <div className="flex flex-col gap-4">
-      <GoogleLogin
-        onSuccess={({ credential }) => {
-          if (credential) void login(credential);
-        }}
-        onError={() => undefined}
-        useOneTap={false}
-      />
-      {isLoading && <p className="text-sm text-gray-600">Đang xác thực với Google...</p>}
-      {error && <p className="text-sm text-red-500">{error}</p>}
-    </div>
-=======
-    <form onSubmit={handleSubmit(login)} className="flex flex-col gap-[13px]">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-[13px]">
       <div className="flex flex-col gap-[6px]">
         <label htmlFor="email" className="text-[13.5px] font-semibold text-bvc-muted">
           Email trường
         </label>
         <input
-          {...register("email")}
+          {...register("email", { required: "Vui lòng nhập email" })}
           id="email"
           type="email"
           placeholder="anhtm@fpt.edu.vn"
@@ -50,7 +50,7 @@ export function LoginForm() {
         </label>
         <div className="relative flex">
           <input
-            {...register("password")}
+            {...register("password", { required: "Vui lòng nhập mật khẩu" })}
             id="password"
             type={showPassword ? "text" : "password"}
             placeholder="••••••••"
@@ -82,7 +82,7 @@ export function LoginForm() {
 
       {error && (
         <p className="rounded-[12px] bg-bvc-accent-tint px-[12px] py-[9px] text-[13.5px] text-bvc-accent-text">
-          Đăng nhập thất bại. Kiểm tra lại email hoặc mật khẩu.
+          {error}
         </p>
       )}
 
@@ -94,6 +94,5 @@ export function LoginForm() {
         {isLoading ? "Đang xử lý..." : "Đăng nhập"}
       </button>
     </form>
->>>>>>> Stashed changes
   );
 }

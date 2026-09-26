@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Play } from "lucide-react";
 
 import { MobileHeader } from "@/shared/components/bvc/MobileHeader";
@@ -60,7 +59,6 @@ const USER_BARS = [
 // ─────────────────────────────────────────────────────────────────────────────
 
 export function ErrorDetailPage() {
-  const navigate = useNavigate();
   const [isPlaying, setIsPlaying] = useState(false);
 
   return (

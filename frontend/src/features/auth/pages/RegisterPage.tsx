@@ -24,17 +24,12 @@ export function RegisterPage() {
         </div>
 
         <RegisterForm />
-<<<<<<< Updated upstream
-        <p className="mt-4 text-center text-sm text-gray-600">
-          Đã có tài khoản? <Link to="/login" className="text-blue-600 hover:underline">Đăng nhập</Link>
-=======
 
         <p className="text-center text-[13.5px] text-bvc-muted">
           Đã có tài khoản?{" "}
           <Link to="/login" className="font-semibold text-bvc-accent-text">
             Đăng nhập
           </Link>
->>>>>>> Stashed changes
         </p>
       </div>
     </div>

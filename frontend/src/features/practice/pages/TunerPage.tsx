@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { MobileHeader } from "@/shared/components/bvc";
 
 const NOTES = ["Đô", "Đô#", "Rê", "Rê#", "Mi", "Fa", "Fa#", "Sol", "Sol#", "La", "La#", "Si"];
