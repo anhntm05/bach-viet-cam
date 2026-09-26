@@ -137,9 +137,6 @@ export function DevNav() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Only show in development
-  if (import.meta.env.PROD) return null;
-
   return (
     <>
       {/* Toggle button */}
