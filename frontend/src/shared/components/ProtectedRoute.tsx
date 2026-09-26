@@ -9,6 +9,11 @@ interface ProtectedRouteProps {
 export function ProtectedRoute({ allowedRoles }: ProtectedRouteProps) {
   const { user, isLoading, hasAnyRole } = useAuth();
 
+  // In development, bypass auth so all routes are accessible for UI review
+  if (import.meta.env.DEV) {
+    return <Outlet />;
+  }
+
   if (isLoading) {
     return <div className="p-10 text-center text-on-surface-variant">Đang tải...</div>;
   }
