@@ -62,16 +62,33 @@ const SECTIONS = [
     color: "#6B4FA8",
     routes: [
       { label: "Hòa tấu", path: "/ensemble/session-1" },
+      { label: "Ghép bè (playback)", path: "/ensemble/session-1/playback" },
+      { label: "Chợ thuê nhạc cụ", path: "/rental/marketplace" },
       { label: "Thuê nhạc cụ", path: "/rental" },
+    ],
+  },
+  {
+    label: "Thông báo & Hỗ trợ",
+    color: "#2E7D4F",
+    routes: [
+      { label: "Thông báo", path: "/notifications" },
+      { label: "Trợ lý hỗ trợ", path: "/help" },
     ],
   },
   {
     label: "Desktop — GV",
     color: "#1A1714",
     routes: [
+      { label: "Trang chủ GV", path: "/teacher/home" },
       { label: "Bảng điều khiển lớp", path: "/teacher" },
+      { label: "Danh sách lớp", path: "/teacher/classes" },
+      { label: "Tạo lớp học", path: "/teacher/classes/new" },
+      { label: "Phân công bè", path: "/teacher/classes/trd301/assign" },
+      { label: "Lộ trình 6 tuần", path: "/teacher/roadmap" },
+      { label: "Danh sách bài tập", path: "/teacher/assignments" },
       { label: "Duyệt bài nộp", path: "/teacher/review" },
       { label: "Tạo bài tập", path: "/teacher/assignments/new" },
+      { label: "Review sinh viên", path: "/teacher/student-review" },
     ],
   },
   {
@@ -89,7 +106,28 @@ const SECTIONS = [
     color: "#1A1714",
     routes: [
       { label: "Tổng quan hệ thống", path: "/admin" },
+      { label: "Quản lý người dùng", path: "/admin/users" },
+      { label: "Cấu hình hệ thống", path: "/admin/config" },
+      { label: "Phân loại (Admin)", path: "/admin/categories" },
+      { label: "Giám sát hệ thống", path: "/admin/monitoring" },
+      { label: "Quản lý thông báo", path: "/admin/notifications" },
+      { label: "Duyệt nội dung", path: "/community/approval" },
       { label: "Cho thuê (provider)", path: "/rental/provider" },
+    ],
+  },
+  {
+    label: "Community (M04)",
+    color: "#6B4FA8",
+    routes: [
+      { label: "Bonus Assignments", path: "/community/bonus" },
+      { label: "Chi tiết Bonus", path: "/community/bonus/b1" },
+      { label: "Nộp Bonus", path: "/community/bonus/b1/submit" },
+      { label: "Bảng xếp hạng", path: "/community/leaderboard" },
+      { label: "Challenges", path: "/community/challenges" },
+      { label: "Chi tiết Challenge", path: "/community/challenges/c1" },
+      { label: "Tạo Bonus (Desktop)", path: "/community/bonus/new" },
+      { label: "Nội dung Verified", path: "/community/verified" },
+      { label: "Tạo Challenge (Desktop)", path: "/community/challenges/new" },
     ],
   },
 ];
